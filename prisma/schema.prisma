@@ -1,0 +1,145 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  Customer
+  Owner
+}
+
+enum Property {
+  Apartment
+  Villa
+  Townhouse
+  Bungalow
+  Farmhouse
+  Condo
+  Studio
+}
+
+enum HomeStatus {
+  Available
+  Rented
+}
+
+enum BookingStatus {
+  Pending
+  Accepted
+  Rejected
+}
+
+enum Payment_Status {
+  Success
+  Unsuccess
+  Cancel
+  Pending
+}
+
+model Customer {
+  id             String    @id @default(uuid()) @db.Uuid
+  name           String    @db.VarChar(255)
+  email          String    @unique @db.VarChar(255)
+  password       String    @db.VarChar(255)
+  isVerified     Boolean?
+  profession     String?
+  role           UserRole?
+  profilePicture String?
+  mobileNumber   BigInt?
+  address        String?
+  //Link To Booking Model
+  booking        Booking[]
+  //Link to Payment Model
+  payments       Payment[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Owner {
+  id             String    @id @default(uuid()) @db.Uuid
+  name           String    @db.VarChar(255)
+  email          String    @unique @db.VarChar(255)
+  password       String    @db.VarChar(255)
+  isVerified     Boolean?
+  profession     String?
+  role           UserRole?
+  profilePicture String?
+  mobileNumber   BigInt?
+  address        String?
+  // Link To Home Model 
+  home           Home[]
+  //Link to Payment Model
+  payments       Payment[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Home {
+  id                    String     @id @default(uuid()) @db.Uuid
+  thumbnail             String
+  imagesOfHome          String[]
+  status                HomeStatus
+  rent_price            Int
+  discounted_rent_price Int
+  discount_rate         Int
+  rating                Float
+  address               String
+  city                  String
+  state                 String
+  pinCode               String
+  description           String
+  depositAmount         Float
+  bedrooms              Int
+  bathrooms             Int
+  area                  Float
+  propertyType          Property
+  availableFrom         DateTime
+  lessDurationMonths    Int
+  furnished             Boolean
+  perFriendly           Boolean
+  parkingAvailable      Boolean
+  // Link To User Model
+  owner                 Owner      @relation(fields: [ownerId], references: [id])
+  ownerId               String     @db.Uuid
+  // Link To Booking Model
+  booking               Booking[]
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime
+}
+
+model Booking {
+  id            String        @id @default(uuid()) @db.Uuid
+  home          Home          @relation(fields: [homeId], references: [id])
+  homeId        String        @db.Uuid
+  customer      Customer      @relation(fields: [customerId], references: [id])
+  customerId    String        @db.Uuid
+  booking_date  DateTime      @default(now())
+  bookingStatus BookingStatus @default(Pending)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Payment {
+  id               String         @id @default(uuid()) @db.Uuid
+  payment_sender   Customer       @relation(fields: [senderId], references: [id])
+  senderId         String         @db.Uuid
+  payment_receiver Owner          @relation(fields: [ownerId], references: [id])
+  ownerId          String         @db.Uuid
+  payment_type     String
+  payment_status   Payment_Status @default(Pending)
+  payment_amount   String
+  details          String
+  DateTime         DateTime       @default(now())
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime
+}
