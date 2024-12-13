@@ -20,10 +20,11 @@ class CustomerDOA {
          },
       });
    }
-   async updateUserAccountDetails(){
-    
+
+   async updateUserAccountDetails(data) {
+     
    }
-   // some method are missing complete task its my aim 
+   // some method are missing complete task its my aim
 }
 
 export const customerDOA = new CustomerDOA();

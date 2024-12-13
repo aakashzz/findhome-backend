@@ -25,6 +25,7 @@ CREATE TABLE "Customer" (
     "profilePicture" TEXT,
     "mobileNumber" BIGINT,
     "address" TEXT,
+    "refreshToken" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

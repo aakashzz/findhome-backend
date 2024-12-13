@@ -57,6 +57,7 @@ model Customer {
   profilePicture String?
   mobileNumber   BigInt?
   address        String?
+  refreshToken   String?
   //Link To Booking Model
   booking        Booking[]
   //Link to Payment Model
