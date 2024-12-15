@@ -17,8 +17,8 @@ app.use(cors({
 
 
 //routes installing this block
-import CustomerRouter from "./public/users/customer/customer.routes"
-app.use("/customer",CustomerRouter)
+import UserRouter from "./public/users/user.routes"
+app.use("/user",UserRouter)
 
 
 app.listen(port,"localhost",()=>{

@@ -1,9 +1,11 @@
-import { ApiError } from "../../../utils/ApiError";
-import { CreateUser, LoginUser } from "../DTO/user.dto";
+import { ApiError } from "../../utils/ApiError";
+import { CreateUser, LoginUser } from "./DTO/user.dto";
 import bcrypt from "bcrypt";
-import { customerDOA } from "../DOA/customer.doa";
+import { userDOA } from "./DOA/user.doa";
 import JWT from "jsonwebtoken";
-import { prisma } from "../../../config/config";
+import { prisma } from "../../config/config";
+import { uploadOnCloudinary } from "../../utils/cloudinary";
+import { User } from "@prisma/client";
 
 async function isPasswordCheck(currentPassword: string, dbPassword: string) {
    return await bcrypt.compare(currentPassword, dbPassword);
@@ -46,7 +48,7 @@ async function createAccount(data: CreateUser) {
       new ApiError(404, "Required Filed Are Empty ....");
    }
 
-   const existedUser = await customerDOA.findUserAccount({
+   const existedUser = await userDOA.findUserAccount({
       email: data.email,
       password: data.password,
    });
@@ -58,7 +60,7 @@ async function createAccount(data: CreateUser) {
 
    let hashedPassword = await bcrypt.hash(data.password, 10);
 
-   return await customerDOA.createUserAccount({
+   return await userDOA.createUserAccount({
       name: data.name,
       email: data.email,
       password: hashedPassword,
@@ -71,7 +73,7 @@ async function loginAccount(data: LoginUser) {
       throw new ApiError(404, "Required Filed Are Empty ....");
    }
 
-   const result = await customerDOA.findUserAccount(data);
+   const result = await userDOA.findUserAccount(data);
 
    if (!result) {
       console.error("User Has Not Existed in DB");
@@ -90,7 +92,7 @@ async function loginAccount(data: LoginUser) {
    );
 
    //mini database update, RefreshToken
-   await prisma.customer.update({
+   await prisma.user.update({
       where: {
          email: result.email,
       },
@@ -102,7 +104,7 @@ async function loginAccount(data: LoginUser) {
 }
 
 async function logoutAccount(id:string){
-   return await prisma.customer.update({
+   return await prisma.user.update({
       where:{
          id:id
       },data:{
@@ -110,4 +112,54 @@ async function logoutAccount(id:string){
       }
    })
 }
-export { createAccount, loginAccount, logoutAccount  };
+
+async function uploadProfilePicture(id:string, profilePictureUrl:string){
+   if(!profilePictureUrl){
+      throw new ApiError(400,"Upload Photo URL Not Available");
+   }
+   const {uploadedObject} = await uploadOnCloudinary(profilePictureUrl);
+   
+   if(!uploadedObject){
+      throw new ApiError(400,"Images Not Uploaded")
+   }
+   const dbUpdateProfile = await userDOA.uploadProfilePicture(id,uploadedObject.secure_url);
+
+   if(!dbUpdateProfile){
+      throw new ApiError(500,"DB Not update profile url")
+   }
+   return dbUpdateProfile
+}
+
+async function updateAccountDetails(id:string,data:User) {
+   if(!data){
+      throw new ApiError(400,"Require Filed Are Empty");
+   }
+
+   const result = await userDOA.updateUserAccountDetails(id,data);
+
+   if(!result){
+      throw new ApiError(501,"User Details Not Update")
+   }
+   return result
+}
+
+async function verifyEmail(token:string){
+   if(!token){
+      throw new ApiError(400,"Verify Token Not Collected");
+   }
+   const decoded = JWT.verify(token,process.env.EMAIL_TOKEN_SECRET) as LoginUser;
+   const updated = await prisma.user.update({
+      where:{
+         id:decoded.id,
+      },data:{
+         isVerified:true,
+         verifyToken:null,
+      }
+   })
+   if(!updated){
+      throw new ApiError(501,"Your Email Not Update in DB To Verified")
+   }
+   return updated
+}
+
+export { createAccount, loginAccount, logoutAccount, uploadProfilePicture , updateAccountDetails,verifyEmail };
