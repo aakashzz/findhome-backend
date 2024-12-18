@@ -7,7 +7,7 @@ cloudinary.config({
    api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export async function uploadOnCloudinary(localFilePath: string) {
+export async function uploadOnCloudinary(localFilePath: any) {
    try {
       if (!localFilePath) throw new ApiError(400, "File Path Not Submit");
 
@@ -16,7 +16,7 @@ export async function uploadOnCloudinary(localFilePath: string) {
       });
       console.log(uploadedObject.secure_url);
       fs.unlinkSync(localFilePath);
-      return { uploadedObject };
+      return  uploadedObject.secure_url ;
    } catch (error: any) {
       fs.unlinkSync(localFilePath);
       throw new ApiError(500, error?.message);

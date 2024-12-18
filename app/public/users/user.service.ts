@@ -64,6 +64,7 @@ async function createAccount(data: CreateUser) {
       name: data.name,
       email: data.email,
       password: hashedPassword,
+      role:data.role
    });
 }
 
@@ -117,12 +118,13 @@ async function uploadProfilePicture(id:string, profilePictureUrl:string){
    if(!profilePictureUrl){
       throw new ApiError(400,"Upload Photo URL Not Available");
    }
-   const {uploadedObject} = await uploadOnCloudinary(profilePictureUrl);
+   const secure_url = await uploadOnCloudinary(profilePictureUrl);
    
-   if(!uploadedObject){
+   if(!secure_url){
       throw new ApiError(400,"Images Not Uploaded")
    }
-   const dbUpdateProfile = await userDOA.uploadProfilePicture(id,uploadedObject.secure_url);
+   console.log(secure_url)
+   const dbUpdateProfile = await userDOA.uploadProfilePicture(id,secure_url);
 
    if(!dbUpdateProfile){
       throw new ApiError(500,"DB Not update profile url")

@@ -46,7 +46,10 @@ enum Payment_Status {
   Cancel
   Pending
 }
-
+enum Permission {
+  Yes
+  No
+}
 model User {
   id             String    @id @default(uuid()) @db.Uuid
   name           String    @db.VarChar(255)
@@ -54,11 +57,11 @@ model User {
   password       String    @db.VarChar(255)
   isVerified     Boolean?
   profession     String?
-  role           UserRole?
+  role           UserRole
   profilePicture String?
   mobileNumber   String?
   address        String?
-  verifyToken     String?
+  verifyToken    String?
   refreshToken   String?
   home           Home[]
   //Link to Payment Model
@@ -72,35 +75,35 @@ model User {
 
 model Home {
   id                    String     @id @default(uuid()) @db.Uuid
-  thumbnail             String
+  thumbnail             String?
   imagesOfHome          String[]
   status                HomeStatus
-  rent_price            Int
-  discounted_rent_price Int
-  discount_rate         Int
-  rating                Float
-  address               String
-  city                  String
-  state                 String
-  pinCode               String
-  description           String
-  depositAmount         String
-  bedrooms              Int
-  bathrooms             Int
-  area                  Float
+  rent_price            String
+  discounted_rent_price String
+  discount_rate         String
+  rating                String
+  address               String     @db.VarChar(255)
+  city                  String     @db.VarChar(255)
+  state                 String     @db.VarChar(255)
+  pinCode               String     @db.VarChar(255)
+  description           String     @db.VarChar(255)
+  depositAmount         String     @db.VarChar(255)
+  bedrooms              String
+  bathrooms             String
+  area                  String
   propertyType          Property
   availableFrom         DateTime
-  lessDurationMonths    Int
-  furnitureAvailable           Boolean
-  petsPermission           Boolean
-  parkingAvailable      Boolean
+  lessDurationMonths    String
+  furnitureAvailable    Permission
+  petsPermission        Permission
+  parkingAvailable      Permission
   // Link To User Model
   user                  User       @relation(fields: [userId], references: [id])
   userId                String     @db.Uuid
   // Link To Booking Model
   booking               Booking[]
   createdAt             DateTime   @default(now())
-  updatedAt             DateTime
+  updatedAt             DateTime   @updatedAt
 }
 
 model Booking {

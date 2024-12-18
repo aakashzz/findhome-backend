@@ -18,7 +18,9 @@ app.use(cors({
 
 //routes installing this block
 import UserRouter from "./public/users/user.routes"
+import HomeRouter from "./public/homes/home.routes"
 app.use("/user",UserRouter)
+app.use("/home",HomeRouter)
 
 
 app.listen(port,"localhost",()=>{

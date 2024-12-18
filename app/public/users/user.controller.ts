@@ -81,7 +81,7 @@ async function getCurrentUserAccount(req: Requests, res: Response) {
 async function uploadUserProfilePicture(req: Requests, res: Response) {
    try {
       const profilePicture = req.file.path;
-      console.log(profilePicture);
+      // console.log(req.file);
       const { id } = req.user;
       const result = await uploadProfilePicture(id, profilePicture);
 

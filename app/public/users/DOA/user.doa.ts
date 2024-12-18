@@ -9,7 +9,7 @@ class UserDOA {
             name: data.name,
             email: data.email,
             password: data.password,
-            role: "Customer",
+            role: data.role,
          },
       });
    }
