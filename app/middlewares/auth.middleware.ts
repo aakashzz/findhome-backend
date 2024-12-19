@@ -48,7 +48,7 @@ export async function verifyingUserToken(
    }
 }
 
-export function authorization(roles: UserRole) {
+export function authorization(roles: Array<UserRole>) {
    return function (req: Requests, _: Response, next: NextFunction) {
       if (!req.user?.isVerified) {
          throw new ApiError(403, "UnVerified Account");

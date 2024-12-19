@@ -3,6 +3,7 @@ import { ApiError } from "../../utils/ApiError";
 import { Response } from "express";
 import { createHouse, updateHouseDetail } from "./home.service";
 import { HomeDTO } from "./DTO/home.dto";
+import { homeDOA } from "./DOA/home.doa";
 
 async function newHouseCreate(req: Requests, res: Response) {
    try {
@@ -37,4 +38,45 @@ async function updateHouseDetails(req: Requests, res: Response) {
       throw new ApiError(error?.statusCode, error?.message);
    }
 }
-export { newHouseCreate,updateHouseDetails };
+
+async function showAllHouseDetails(req: Requests, res: Response){
+   try {
+      res.status(200).json(await homeDOA.showAllHouse());
+   } catch (error:any) {
+      console.error(error);
+      throw new ApiError(error?.statusCode, error?.message);
+   }
+}
+
+async function showOwnerHouse(req:Requests,res:Response){
+   try {
+      const { id } = req.user;
+      const result = await homeDOA.showOwnerHouse(id);
+      if(!result){
+         throw new ApiError(400,"User Not Authorize other wise Login");
+      }
+
+      res.status(200).json(result);
+   } catch (error:any) {
+      console.error(error);
+      throw new ApiError(error?.statusCode, error?.message);
+   }
+}
+
+async function deleteHouse(req:Requests,res:Response) {
+   try {
+      const { houseId } = req.body;
+      const {id} = req.user;
+      const result = await homeDOA.deleteOwnerHouse(houseId,id);
+      if(!result){
+         throw new ApiError(400,"House Id Not Supply Rather then db not deleting");
+      }
+      res.status(200).json(result);
+   } catch (error:any) {
+      console.error(error);
+      throw new ApiError(error?.statusCode, error?.message);
+   }
+}
+
+
+export { newHouseCreate,updateHouseDetails ,showAllHouseDetails, showOwnerHouse, deleteHouse};

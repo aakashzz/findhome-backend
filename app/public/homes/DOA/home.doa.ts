@@ -63,6 +63,28 @@ class HomeDOA {
          }
       })
    }
+
+   async showAllHouse(){
+      //this for all people to seeing houses and other qury after will sorted 
+      return await prisma.home.findMany();
+   }
+
+   async showOwnerHouse(ownerId:string){
+      return await prisma.home.findMany({
+         where:{
+            userId:ownerId
+         }
+      })
+   }
+
+   async deleteOwnerHouse(houseId:string,ownerId:string){
+      return await prisma.home.delete({
+         where:{
+            id:houseId,
+            userId:ownerId
+         }
+      })
+   }
 }
 
 export const homeDOA = new HomeDOA();
