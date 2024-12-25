@@ -15,23 +15,18 @@ export class HomeDTO {
    id:string;
    status: HomeStatus;
    rent_price: string;
-   discounted_rent_price: string;
-   discounted_rate: string;
    rating: string;
    address: string;
    city: string;
    state: string;
+   country:string;
    pincode: string;
    description: string;
    depositAmount: string;
-   bedrooms: string;
-   bathrooms: string;
-   area: string;
+   BHK:string
    propertyType: Property;
-   availableFrom: Date;
-   lessDurationMonths: string;
    furnitureAvailable: Permission;
    petPermission: Permission;
    parkingAvailable: Permission;
-
+   contract_based_deal:Permission
 }

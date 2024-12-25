@@ -20,7 +20,7 @@ enum UserRole {
 }
 
 enum Property {
-  Apartment
+  Apartment 
   Villa
   Townhouse
   Bungalow
@@ -79,21 +79,17 @@ model Home {
   imagesOfHome          String[]
   status                HomeStatus
   rent_price            String
-  discounted_rent_price String
-  discount_rate         String
   rating                String
   address               String     @db.VarChar(255)
   city                  String     @db.VarChar(255)
   state                 String     @db.VarChar(255)
-  pinCode               String     @db.VarChar(255)
+  country               String     @db.VarChar(255)
+  pincode               String     @db.VarChar(255)
   description           String     @db.VarChar(255)
   depositAmount         String     @db.VarChar(255)
-  bedrooms              String
-  bathrooms             String
-  area                  String
+  BHK                   String
   propertyType          Property
-  availableFrom         DateTime
-  lessDurationMonths    String
+  contract_based_deal   Permission
   furnitureAvailable    Permission
   petsPermission        Permission
   parkingAvailable      Permission

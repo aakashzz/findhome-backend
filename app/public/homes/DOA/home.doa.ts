@@ -14,27 +14,23 @@ class HomeDOA {
          data: {
             thumbnail: thumbnailUrl,
             imagesOfHome: imagesOfHouseUrl,
+            country:data.country,
             address: data.address,
-            availableFrom: data.availableFrom,
-            bathrooms: data.bathrooms,
-            bedrooms: data.bedrooms,
             city: data.city,
             depositAmount: data.depositAmount,
             description: data.description,
-            discount_rate: data.discounted_rate,
-            discounted_rent_price: data.discounted_rent_price,
             furnitureAvailable: data.furnitureAvailable,
-            lessDurationMonths: data.lessDurationMonths,
             parkingAvailable: data.parkingAvailable,
             petsPermission: data.petPermission,
-            pinCode: data.pincode,
+            pincode: data.pincode,
             propertyType: data.propertyType,
             rating: data.rating,
             rent_price: data.rent_price,
             state: data.state,
             status: data.status,
             userId: ownerId,
-            area: data.area,
+            BHK: data.BHK,
+            contract_based_deal:data.contract_based_deal
          } ,
       });
       
@@ -47,26 +43,26 @@ class HomeDOA {
             id:data.id
          },data:{
             address:data.address!,
-            availableFrom:data.availableFrom!,
-            bathrooms:data.bathrooms!,
-            bedrooms:data.bedrooms!,
             depositAmount:data.city!,
             description:data.description!,
-            discount_rate:data.discounted_rate!,
-            discounted_rent_price:data.discounted_rent_price!,
             furnitureAvailable:data.furnitureAvailable!,
-            lessDurationMonths:data.lessDurationMonths!,
             parkingAvailable:data.parkingAvailable!,
             petsPermission:data.petPermission!,
             rent_price:data.rent_price!,
             status:data.status!,
+            contract_based_deal:data.contract_based_deal!,
+            BHK:data.BHK
          }
       })
    }
 
-   async showAllHouse(){
+   async showSelectedHome(homeId:string){
       //this for all people to seeing houses and other qury after will sorted 
-      return await prisma.home.findMany();
+      return await prisma.home.findFirst({
+         where:{
+            id:homeId
+         }
+      });
    }
 
    async showOwnerHouse(ownerId:string){

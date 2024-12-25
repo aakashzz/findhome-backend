@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Home" ALTER COLUMN "rating" SET DATA TYPE TEXT;

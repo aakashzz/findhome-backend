@@ -13,6 +13,9 @@ CREATE TYPE "BookingStatus" AS ENUM ('Pending', 'Accepted', 'Rejected');
 -- CreateEnum
 CREATE TYPE "Payment_Status" AS ENUM ('Success', 'Unsuccess', 'Cancel', 'Pending');
 
+-- CreateEnum
+CREATE TYPE "Permission" AS ENUM ('Yes', 'No');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" UUID NOT NULL,
@@ -40,24 +43,20 @@ CREATE TABLE "Home" (
     "imagesOfHome" TEXT[],
     "status" "HomeStatus" NOT NULL,
     "rent_price" TEXT NOT NULL,
-    "discounted_rent_price" TEXT NOT NULL,
-    "discount_rate" TEXT NOT NULL,
-    "rating" DOUBLE PRECISION NOT NULL,
+    "rating" TEXT NOT NULL,
     "address" VARCHAR(255) NOT NULL,
     "city" VARCHAR(255) NOT NULL,
     "state" VARCHAR(255) NOT NULL,
-    "pinCode" VARCHAR(255) NOT NULL,
+    "country" VARCHAR(255) NOT NULL,
+    "pincode" VARCHAR(255) NOT NULL,
     "description" VARCHAR(255) NOT NULL,
     "depositAmount" VARCHAR(255) NOT NULL,
-    "bedrooms" TEXT NOT NULL,
-    "bathrooms" TEXT NOT NULL,
-    "area" TEXT NOT NULL,
+    "BHK" TEXT NOT NULL,
     "propertyType" "Property" NOT NULL,
-    "availableFrom" TIMESTAMP(3) NOT NULL,
-    "lessDurationMonths" TEXT NOT NULL,
-    "furnitureAvailable" BOOLEAN NOT NULL,
-    "petsPermission" BOOLEAN NOT NULL,
-    "parkingAvailable" BOOLEAN NOT NULL,
+    "contract_based_deal" "Permission" NOT NULL,
+    "furnitureAvailable" "Permission" NOT NULL,
+    "petsPermission" "Permission" NOT NULL,
+    "parkingAvailable" "Permission" NOT NULL,
     "userId" UUID NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,

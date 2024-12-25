@@ -27,7 +27,7 @@ router
    .route("/update")
    .put(verifyingUserToken, authorization(["Owner"]), updateHouseDetails);
 
-router.route("/getAll").get(verifyingUserToken, showAllHouseDetails);
+router.route("/get-house/:id").get(verifyingUserToken, showAllHouseDetails);
 
 router.route("/getOwner").get(verifyingUserToken,authorization(["Owner"]),showOwnerHouse)
 
