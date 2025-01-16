@@ -13,6 +13,8 @@ export interface RequestFileType {
 
 export class HomeDTO {
    id:string;
+   thumbnail: RequestFileType;
+   imagesOfHome:Array<RequestFileType>;
    status: HomeStatus;
    rent_price: string;
    rating: string;
@@ -26,7 +28,7 @@ export class HomeDTO {
    BHK:string
    propertyType: Property;
    furnitureAvailable: Permission;
-   petPermission: Permission;
+   petsPermission: Permission;
    parkingAvailable: Permission;
    contract_based_deal:Permission
 }

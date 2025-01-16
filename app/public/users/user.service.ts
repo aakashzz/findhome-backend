@@ -73,19 +73,18 @@ async function loginAccount(data: LoginUser) {
       console.error("Required filed Empty");
       throw new ApiError(404, "Required Filed Are Empty ....");
    }
-
    const result = await userDOA.findUserAccount(data);
-
    if (!result) {
       console.error("User Has Not Existed in DB");
       throw new ApiError(400, "User Has Not Existed in DB ....");
    }
 
-   const isPasswordTest = await isPasswordCheck(data.password, result.password);
+   //error is bcrypt have not accept await 
+   const isPasswordTest = isPasswordCheck(data.password, result.password);
 
    if (!isPasswordTest) {
-      console.error("User Has Not Existed in DB");
-      throw new ApiError(400, "User Has Not Existed in DB ....");
+      console.error("User Password Not Correct");
+      throw new ApiError(400, "User Password Not Correct ....");
    }
    const { accessToken, refreshToken } = generateAccessAndRefreshToken(
       result.email,

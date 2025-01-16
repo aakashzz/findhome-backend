@@ -18,7 +18,7 @@ class UserDOA {
       return await prisma.user.findFirst({
          where: {
             email: data.email,
-            id:data.id
+            id:data.id!
          },
       });
    }

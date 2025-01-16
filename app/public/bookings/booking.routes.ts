@@ -25,7 +25,7 @@ router
 router.route("/delete").delete(verifyingUserToken, authorization(["Owner"]));
 router
    .route("/getCustomer")
-   .delete(
+   .get(
       verifyingUserToken,
       authorization(["Customer"]),
       showBookingOfCustomer

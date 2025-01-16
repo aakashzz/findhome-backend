@@ -11,10 +11,9 @@ export async function verifyingUserToken(
    next: NextFunction
 ): Promise<any> {
    try {
-      const accessToken =
-         req.cookies?.accessToken ||
-         req.headers.authorization.replace("Bearer ", "")!;
-
+      console.log(req)
+      const accessToken = req.cookies?.accessToken || req.headers?.cookie["accessToken"]
+      
       if (!accessToken) {
          console.error("User Not Authorize Please Login");
          throw new ApiError(400, "User Not Authorize Please Login");
@@ -28,7 +27,7 @@ export async function verifyingUserToken(
       const searchedUser = await prisma.user.findFirst({
          where: {
             email: decodedValue.email,
-            isVerified:true
+            isVerified: true,
          },
       });
 
@@ -44,7 +43,7 @@ export async function verifyingUserToken(
       next();
    } catch (error) {
       console.error("Decoded Token Error ", error);
-      next(new ApiError(401, "Token is expired or invalid Please check "));
+      return new ApiError(401, "Token is expired or invalid Please check ");
    }
 }
 
@@ -54,7 +53,7 @@ export function authorization(roles: Array<UserRole>) {
          throw new ApiError(403, "UnVerified Account");
       }
       if (roles && !roles.includes(req.user?.role)) {
-         throw new ApiError(403, "UnAuthorized Account");
+         throw new ApiError(401, "UnAuthorized Account");
       }
       next();
    };

@@ -21,7 +21,7 @@ class HomeDOA {
             description: data.description,
             furnitureAvailable: data.furnitureAvailable,
             parkingAvailable: data.parkingAvailable,
-            petsPermission: data.petPermission,
+            petsPermission: data.petsPermission,
             pincode: data.pincode,
             propertyType: data.propertyType,
             rating: data.rating,
@@ -47,7 +47,7 @@ class HomeDOA {
             description:data.description!,
             furnitureAvailable:data.furnitureAvailable!,
             parkingAvailable:data.parkingAvailable!,
-            petsPermission:data.petPermission!,
+            petsPermission:data.petsPermission!,
             rent_price:data.rent_price!,
             status:data.status!,
             contract_based_deal:data.contract_based_deal!,
@@ -61,7 +61,10 @@ class HomeDOA {
       return await prisma.home.findFirst({
          where:{
             id:homeId
-         }
+         },
+        include:{
+         user:true
+        }
       });
    }
 

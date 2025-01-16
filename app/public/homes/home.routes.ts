@@ -18,11 +18,11 @@ router.route("/create").post(
    verifyingUserToken,
    authorization(["Owner"]),
    upload.fields([
-      { name: "thumbnail", maxCount: 1 },
-      { name: "imagesOfHome", maxCount: 10 },
-   ]),
+      { name: "thumbnail", maxCount:1 },
+      { name: "imagesOfHome", maxCount:10},
+   ]),  
    newHouseCreate
-);
+);       
 router
    .route("/update")
    .put(verifyingUserToken, authorization(["Owner"]), updateHouseDetails);

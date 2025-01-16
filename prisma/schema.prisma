@@ -78,8 +78,8 @@ model Home {
   thumbnail             String?
   imagesOfHome          String[]
   status                HomeStatus
-  rent_price            String
-  rating                String
+  rent_price            Int
+  rating                Float
   address               String     @db.VarChar(255)
   city                  String     @db.VarChar(255)
   state                 String     @db.VarChar(255)
@@ -87,7 +87,7 @@ model Home {
   pincode               String     @db.VarChar(255)
   description           String     @db.VarChar(255)
   depositAmount         String     @db.VarChar(255)
-  BHK                   String
+  BHK                   Int
   propertyType          Property
   contract_based_deal   Permission
   furnitureAvailable    Permission

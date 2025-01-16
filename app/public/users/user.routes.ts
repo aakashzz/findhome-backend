@@ -11,6 +11,6 @@ router.route("/logout").get(verifyingUserToken,logoutUserAccount);
 router.route("/get-user").get(verifyingUserToken,getCurrentUserAccount);
 router.route("/upload-profile-image").post(verifyingUserToken,upload.single("profilePicture"),uploadUserProfilePicture)
 router.route("/update-account-details").post(verifyingUserToken,updateUserInformation)
-router.route("/verify-email").post(verifyUserEmail)
+router.route("/verify-email").get(verifyUserEmail)
 
 export default router

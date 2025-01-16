@@ -8,6 +8,7 @@ cloudinary.config({
 });
 
 export async function uploadOnCloudinary(localFilePath: any) {
+   console.log("Local File Path",localFilePath)
    try {
       if (!localFilePath) throw new ApiError(400, "File Path Not Submit");
 

@@ -8,9 +8,12 @@ import { homeDOA } from "./DOA/home.doa";
 async function newHouseCreate(req: Requests, res: Response) {
    try {
       const data: HomeDTO = req.body;
-      const imagesOfHome = req.files;
       const { id } = req.user;
-      console.log(data);
+      const imagesOfHome = req.files;
+      console.log(imagesOfHome);
+      console.log("This is Multiple", req.files);
+      // console.log("Images Of Home",data.imagesOfHome.)
+
       const result = await createHouse(id, data, imagesOfHome);
       if (!result) {
          throw new ApiError(500, "Server Issue Let me Check in service file");

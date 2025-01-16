@@ -48,7 +48,7 @@ async function loginUserAccount(req: Request, res: Response) {
       res.status(200)
          .cookie("accessToken", result.accessToken)
          .cookie("refreshToken", result.refreshToken)
-         .json({ message: "User LoggedIN SuccessFully" });
+         .json({ message: "User LoggedIN SuccessFully",result });
    } catch (error: any) {
       console.error(error);
       res.status(error?.statusCode).json(new ApiError(400, error?.message));

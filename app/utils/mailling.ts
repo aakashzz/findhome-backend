@@ -39,7 +39,7 @@ export async function sendEmail(id: string, email: string) {
                <p> "We just need to verify your email address before you can access GrowUp learning platform."
                </p>
                <p>
-                     <a href="${process.env.DOMAIN}/"verify-email"?token=${hashedToken}" style="display: inline-block; background-color: #3772FF; color: white; font-family: 'Inter', sans-serif; padding: 6px 10px; text-decoration: none; border-radius: 5px; font-size: 13px; font-weight: bold;">
+                     <a href="${process.env.DOMAIN}/verify-email?token=${hashedToken}" style="display: inline-block; background-color: #3772FF; color: white; font-family: 'Inter', sans-serif; padding: 6px 10px; text-decoration: none; border-radius: 5px; font-size: 13px; font-weight: bold;">
                         Verify Email
                      </a>
                </p> 
