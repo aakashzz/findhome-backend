@@ -15,7 +15,7 @@ export class SearchResponseDTO {
    id: string;
    thumbnail: String;
    propertyType: String;
-   BHK: Number;
+   BHK: string;
    rating: string;
    address: String;
    city: String;
@@ -27,7 +27,7 @@ export class SearchResponseDTO {
       id: string,
       thumbnail: string,
       propertyType: string,
-      BHK: number,
+      BHK: string,
       rating: string,
       address: string,
       city: string,

@@ -21,15 +21,11 @@ router
 router
    .route("/update")
    .put(verifyingUserToken, authorization(["Owner"]), updateBookingRequest);
-   
+
 router.route("/delete").delete(verifyingUserToken, authorization(["Owner"]));
 router
    .route("/getCustomer")
-   .get(
-      verifyingUserToken,
-      authorization(["Customer"]),
-      showBookingOfCustomer
-   );
+   .get(verifyingUserToken, authorization(["Customer"]), showBookingOfCustomer);
 router
    .route("/getOwner")
    .get(verifyingUserToken, authorization(["Owner"]), showBookingOfOwner);

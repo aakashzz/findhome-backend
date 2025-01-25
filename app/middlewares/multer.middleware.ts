@@ -9,11 +9,9 @@ const storage = multer.diskStorage({
    },
 });
 
-console.log("This Storage", storage);
-
 export const upload = multer({
    storage: storage,
-   limits: {
-      fileSize: 3000000,
-   },
+   // limits: {
+   //    fileSize: 3000000,
+   // },
 });

@@ -21,7 +21,7 @@ async function searchLocation(req: Requests, res: Response) {
                value.id,
                value.thumbnail,
                value.propertyType,
-               2,
+               value.BHK,
                value.rating,
                value.address,
                value.city,

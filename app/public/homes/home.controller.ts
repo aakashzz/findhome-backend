@@ -1,16 +1,16 @@
 import { Requests } from "../../types/request.type";
 import { ApiError } from "../../utils/ApiError";
 import { Response } from "express";
-import { createHouse, updateHouseDetail } from "./home.service";
+import { createHouse, updateHouseDetail, updateHouseImages } from "./home.service";
 import { HomeDTO } from "./DTO/home.dto";
 import { homeDOA } from "./DOA/home.doa";
 
 async function newHouseCreate(req: Requests, res: Response) {
    try {
-      const data: HomeDTO = req.body;
+      const data = req.body;
       const { id } = req.user;
       const imagesOfHome = req.files;
-      console.log(imagesOfHome);
+      console.log(data);
       console.log("This is Multiple", req.files);
       // console.log("Images Of Home",data.imagesOfHome.)
 
@@ -28,8 +28,9 @@ async function newHouseCreate(req: Requests, res: Response) {
 
 async function updateHouseDetails(req: Requests, res: Response) {
    try {
-      const data: HomeDTO = req.body;
+      const data = req.body;
       const { id } = req.user;
+      console.log(req.body)
       const result = await updateHouseDetail(data, id);
       if (!result) {
          throw new ApiError(500, "Server Issue Let me Check in service file");
@@ -89,10 +90,29 @@ async function deleteHouse(req: Requests, res: Response) {
    }
 }
 
+async function updateImagesOfHome(req: Requests,res:Response){
+   try {
+      const {houseId} = req.body;
+      const {id} = req.user;
+      const imagesOfHome = req.files;
+      // console.log(houseId,imagesOfHome)
+      console.log(imagesOfHome)
+      const response = await updateHouseImages(houseId,imagesOfHome,id)
+      if(!response){
+         throw new ApiError(500,"Response Not Correct Let Check")
+      }
+      res.status(201).json(response)
+   } catch (error: any) {
+      console.error(error);
+      throw new ApiError(error?.statusCode, error?.message);
+   }
+}
+
 export {
    newHouseCreate,
    updateHouseDetails,
    showAllHouseDetails,
    showOwnerHouse,
    deleteHouse,
+   updateImagesOfHome
 };

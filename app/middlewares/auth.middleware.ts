@@ -11,7 +11,6 @@ export async function verifyingUserToken(
    next: NextFunction
 ): Promise<any> {
    try {
-      console.log(req)
       const accessToken = req.cookies?.accessToken || req.headers?.cookie["accessToken"]
       
       if (!accessToken) {
