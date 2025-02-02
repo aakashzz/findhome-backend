@@ -16,6 +16,18 @@ class SearchDOA {
                         address:{contains:query, mode:"insensitive"}
                     }
                 ]
+            },
+            select:{
+                id:true,
+                thumbnail:true,
+                address:true,
+                city:true,
+                BHK:true,
+                propertyType:true,
+                country:true,
+                rating:true,
+                rent_price:true,
+                status:true
             }
         })
     }

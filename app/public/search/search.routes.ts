@@ -4,6 +4,6 @@ import { searchLocation } from "./search.controller";
 
 const router = Router();
 
-router.route("/").get(verifyingUserToken,authorization(["Admin","Customer","Owner"]),searchLocation)
+router.route("/").get(searchLocation)
 
 export default router

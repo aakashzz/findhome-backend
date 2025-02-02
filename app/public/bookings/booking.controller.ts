@@ -21,7 +21,7 @@ async function createBookingForCustomer(req: Requests, res: Response) {
       res.status(201).json(result);
    } catch (error: any) {
       console.error(error);
-      throw new ApiError(error.statusCode || error.status, error.message);
+      res.status(error.statusCode).json(new ApiError(error.statusCode || error.status, error.message));
    }
 }
 
@@ -35,7 +35,7 @@ async function showBookingOfOwner(req: Requests, res: Response) {
       res.status(200).json(result);
    } catch (error: any) {
       console.error(error);
-      throw new ApiError(error.statusCode || error.status, error.message);
+      res.status(error.statusCode).json(new ApiError(error.statusCode || error.status, error.message));
    }
 }
 
@@ -50,7 +50,7 @@ async function updateBookingRequest(req: Requests, res: Response) {
       res.status(200).json(result);
    } catch (error: any) {
       console.error(error);
-      throw new ApiError(error.statusCode || error.status, error.message);
+      res.status(error.statusCode).json(new ApiError(error.statusCode || error.status, error.message));
    }
 }
 
@@ -64,7 +64,7 @@ async function showBookingOfCustomer(req: Requests, res: Response) {
       res.status(200).json(result);
    } catch (error: any) {
       console.error(error);
-      throw new ApiError(error.statusCode || error.status, error.message);
+      res.status(error.statusCode).json(new ApiError(error.statusCode || error.status, error.message));
    }
 }
 

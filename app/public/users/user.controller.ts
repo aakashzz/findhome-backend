@@ -11,6 +11,13 @@ import { ApiError } from "../../utils/ApiError";
 import { Requests } from "../../types/request.type";
 import { sendEmail } from "../../utils/mailling";
 
+export const optionsOfCookie = {
+   httpOnly:true,
+   maxAge: 86400000,
+   secure:true,
+   path:"/",
+}
+
 //POST method create customer account
 async function createUserAccount(req: Request, res: Response) {
    try {
@@ -46,8 +53,8 @@ async function loginUserAccount(req: Request, res: Response) {
       }
 
       res.status(200)
-         .cookie("accessToken", result.accessToken)
-         .cookie("refreshToken", result.refreshToken)
+         .cookie("accessToken", result.accessToken,optionsOfCookie)
+         .cookie("refreshToken", result.refreshToken,optionsOfCookie)
          .json({ message: "User LoggedIN SuccessFully",result });
    } catch (error: any) {
       console.error(error);

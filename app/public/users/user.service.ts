@@ -6,6 +6,7 @@ import JWT from "jsonwebtoken";
 import { prisma } from "../../config/config";
 import { uploadOnCloudinary } from "../../utils/cloudinary";
 import { User } from "@prisma/client";
+import ms from "ms"
 
 async function isPasswordCheck(currentPassword: string, dbPassword: string) {
    return await bcrypt.compare(currentPassword, dbPassword);
@@ -19,7 +20,7 @@ function generateAccessAndRefreshToken(email: string, id: string) {
       },
       process.env.ACCESS_TOKEN_SECRET!,
       {
-         expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+         expiresIn: process.env.ACCESS_TOKEN_EXPIRY || ms("2 days"),
       }
    );
    const refreshToken = JWT.sign(

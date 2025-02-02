@@ -22,7 +22,7 @@ async function newHouseCreate(req: Requests, res: Response) {
       res.status(201).json(result);
    } catch (error: any) {
       console.error(error);
-      throw new ApiError(error?.statusCode, error?.message);
+      res.status(error.statusCode).json(new ApiError(error.statusCode || error.status, error.message));
    }
 }
 
@@ -39,7 +39,7 @@ async function updateHouseDetails(req: Requests, res: Response) {
       res.status(200).json(result);
    } catch (error: any) {
       console.error(error);
-      throw new ApiError(error?.statusCode, error?.message);
+      res.status(error.statusCode).json(new ApiError(error.statusCode || error.status, error.message));
    }
 }
 
@@ -53,7 +53,7 @@ async function showAllHouseDetails(req: Requests, res: Response) {
       res.status(200).json(result);
    } catch (error: any) {
       console.error(error);
-      throw new ApiError(error?.statusCode, error?.message);
+      res.status(error.statusCode).json(new ApiError(error.statusCode || error.status, error.message));
    }
 }
 
@@ -68,7 +68,7 @@ async function showOwnerHouse(req: Requests, res: Response) {
       res.status(200).json(result);
    } catch (error: any) {
       console.error(error);
-      throw new ApiError(error?.statusCode, error?.message);
+      res.status(error.statusCode).json(new ApiError(error.statusCode || error.status, error.message));
    }
 }
 
@@ -86,7 +86,7 @@ async function deleteHouse(req: Requests, res: Response) {
       res.status(200).json(result);
    } catch (error: any) {
       console.error(error);
-      throw new ApiError(error?.statusCode, error?.message);
+      res.status(error.statusCode).json(new ApiError(error.statusCode || error.status, error.message));
    }
 }
 
@@ -104,7 +104,7 @@ async function updateImagesOfHome(req: Requests,res:Response){
       res.status(201).json(response)
    } catch (error: any) {
       console.error(error);
-      throw new ApiError(error?.statusCode, error?.message);
+      res.status(error.statusCode).json(new ApiError(error.statusCode || error.status, error.message));
    }
 }
 

@@ -45,7 +45,7 @@ router.route("/update-images").put(
 
 
 //get id route
-router.route("/get-house/:id").get(verifyingUserToken, showAllHouseDetails);
+router.route("/get-house/:id").get(showAllHouseDetails);
 
 //getOwner route
 router

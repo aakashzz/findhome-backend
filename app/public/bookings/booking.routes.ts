@@ -22,7 +22,7 @@ router
    .route("/update")
    .put(verifyingUserToken, authorization(["Owner"]), updateBookingRequest);
 
-router.route("/delete").delete(verifyingUserToken, authorization(["Owner"]));
+router.route("/delete").delete(verifyingUserToken, authorization(["Owner"]));// method not apply
 router
    .route("/getCustomer")
    .get(verifyingUserToken, authorization(["Customer"]), showBookingOfCustomer);

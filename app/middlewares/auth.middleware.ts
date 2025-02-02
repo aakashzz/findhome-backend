@@ -10,9 +10,8 @@ export async function verifyingUserToken(
    _: Response,
    next: NextFunction
 ): Promise<any> {
+   const accessToken = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
    try {
-      const accessToken = req.cookies?.accessToken || req.headers?.cookie["accessToken"]
-      
       if (!accessToken) {
          console.error("User Not Authorize Please Login");
          throw new ApiError(400, "User Not Authorize Please Login");
@@ -40,9 +39,9 @@ export async function verifyingUserToken(
       req.user = searchedUser;
 
       next();
-   } catch (error) {
-      console.error("Decoded Token Error ", error);
-      return new ApiError(401, "Token is expired or invalid Please check ");
+   } catch (error:any) {
+      // console.error("Decoded Token Error ", error);
+      return new ApiError(401, error.message || "Token is expired or invalid Please check ",error);
    }
 }
 

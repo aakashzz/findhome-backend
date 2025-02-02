@@ -25,15 +25,17 @@ async function searchLocation(req: Requests, res: Response) {
                value.rating,
                value.address,
                value.city,
-               value.state,
+               value.country,
                value.rent_price,
                value.status
             )
       );
       res.status(200).json(rearrangeResult);
    } catch (error: any) {
-      throw new ApiError(error.statusCode, error.message);
+      res.status(error.statusCode).json(new ApiError(error.statusCode || error.status, error.message));
    }
 }
+
+
 
 export { searchLocation };
