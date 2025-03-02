@@ -10,7 +10,7 @@ export interface CreateUser {
 export interface LoginUser {
    id?:string;
    email: string;
-   password: string;
+   password?: string;
 }
 export type Customer = {
    name: string;

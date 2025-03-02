@@ -10,6 +10,7 @@ class UserDOA {
             email: data.email,
             password: data.password,
             role: data.role,
+            profilePicture:"https://plus.unsplash.com/premium_photo-1671192373368-10a54b7cd19e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y29sb3VyJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D"
          },
       });
    }

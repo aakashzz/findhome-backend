@@ -7,7 +7,7 @@ import { Router } from "express";
 import {
    deleteHouse,
    newHouseCreate,
-   showAllHouseDetails,
+   showSelectedHouseDetails,
    showOwnerHouse,
    updateHouseDetails,
    updateImagesOfHome,
@@ -45,7 +45,7 @@ router.route("/update-images").put(
 
 
 //get id route
-router.route("/get-house/:id").get(showAllHouseDetails);
+router.route("/get-house/:id").get(showSelectedHouseDetails);
 
 //getOwner route
 router

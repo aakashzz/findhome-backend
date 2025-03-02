@@ -20,7 +20,7 @@ router
    );
 router
    .route("/update")
-   .put(verifyingUserToken, authorization(["Owner"]), updateBookingRequest);
+   .put(verifyingUserToken, authorization(["Owner","Customer"]), updateBookingRequest);
 
 router.route("/delete").delete(verifyingUserToken, authorization(["Owner"]));// method not apply
 router

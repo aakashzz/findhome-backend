@@ -51,7 +51,7 @@ async function createHouse(userId: string, data: HomeDTO, imagesOfHome: any) {
 
 //update text details
 async function updateHouseDetail(data: HomeDTO, userId: string) {
-   console.log("Data Is ",data)
+   console.log("Data Is ", data);
    if (!data) {
       throw new ApiError(
          400,

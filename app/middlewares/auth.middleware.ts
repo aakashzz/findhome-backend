@@ -10,8 +10,8 @@ export async function verifyingUserToken(
    _: Response,
    next: NextFunction
 ): Promise<any> {
-   const accessToken = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
    try {
+      const accessToken = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
       if (!accessToken) {
          console.error("User Not Authorize Please Login");
          throw new ApiError(400, "User Not Authorize Please Login");
