@@ -1,7 +1,15 @@
 export class SearchRequestDTO {
    q: string;
-   constructor(q: string) {
+   price:string;
+   rooms:string;
+   propertyType:string;
+   rating:string;
+   constructor(q: string, price?: string, rooms?: string,propertyType?: string, rating?: string) {
       this.q = q;
+      this.price = price;
+      this.rooms = rooms;
+      this.propertyType = propertyType;
+      this.rating = rating;
    }
    validator() {
       if (!this.q) {

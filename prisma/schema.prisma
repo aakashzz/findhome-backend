@@ -85,7 +85,7 @@ model Home {
   state                 String     @db.VarChar(255)
   country               String     @db.VarChar(255)
   pincode               String     @db.VarChar(255)
-  description           String     @db.VarChar(255)
+  description           String     
   depositAmount         String     @db.VarChar(255)
   BHK                   String
   propertyType          Property
@@ -108,7 +108,7 @@ model Booking {
   homeId        String        @db.Uuid
   user          User          @relation(fields: [customerId], references: [id])
   customerId    String        @db.Uuid
-  booking_date  DateTime      @default(now())
+  booking_date  String        
   bookingStatus BookingStatus @default(Pending)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt

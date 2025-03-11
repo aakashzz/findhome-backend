@@ -41,6 +41,13 @@ class BookingDOA {
          where: {
             customerId: customerId,
          },
+         include:{
+            home:{
+               include:{
+                  user:true
+               }
+            }
+         }
       });
    }
 
@@ -57,6 +64,21 @@ class BookingDOA {
          },
       });
    }
+   
+   async getBookingIdShow(id:any){
+      return await prisma.booking.findFirst({
+         where:{
+            id: id,
+         },
+         include: {
+            home: {
+               include:{
+                  user:true
+               }
+            }
+         },
+      })
+}
 }
 
 export const bookingDOA = new BookingDOA();

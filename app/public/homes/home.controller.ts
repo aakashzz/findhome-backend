@@ -45,7 +45,7 @@ async function updateHouseDetails(req: Requests, res: Response) {
    } catch (error: any) {
       console.error(error);
       res.status(error.statusCode).json(
-         new ApiError(error.statusCode || error.status, "", error.message)
+         new ApiError(error.statusCode,"",[{"message":error.message}])
       );
    }
 }
@@ -62,7 +62,7 @@ async function showSelectedHouseDetails(req: Requests, res: Response) {
       }
       const RelatedHouse = await homeDOA.relatedHomeDetails(
          result.country,
-         result.state
+         result.id
       );
       res.status(200).json(
          new ApiResponse(200, "Response SuccessFully", { result, RelatedHouse })
@@ -70,7 +70,7 @@ async function showSelectedHouseDetails(req: Requests, res: Response) {
    } catch (error: any) {
       console.error(error);
       res.status(error?.statusCode).json(
-         new ApiError(error.statusCode, "", [{ message: error.message }])
+         new ApiError(error.statusCode,"",[{"message":error.message}])
       );
    }
 }

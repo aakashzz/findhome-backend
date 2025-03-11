@@ -67,11 +67,13 @@ class HomeDOA {
       });
    }
 
-   async relatedHomeDetails(country:string, state: string){
+   async relatedHomeDetails(country:string, id: string){
       return await prisma.home.findMany({
          where:{
             country:country,
-            state:state
+            id:{
+               not: id
+            }
          },
          include:{
             user:true,

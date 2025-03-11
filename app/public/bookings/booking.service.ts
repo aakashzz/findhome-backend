@@ -3,6 +3,7 @@ import { bookingDOA } from "./DOA/booking.doa";
 import { Bookings } from "./DTO/booking.dto";
 
 async function createBooking(data: Bookings, userId: string) {
+   console.log(data)
    if (!data) {
       throw new ApiError(400, "Required Filed Not Here");
    }
@@ -43,8 +44,11 @@ async function getCustomerBooking(customerId: string) {
    if (!response) {
       throw new ApiError(500, "Fetching All Booking Not Working");
    }
+   console.log(response)
    return response;
 }
+
+
 
 export {
    createBooking,

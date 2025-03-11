@@ -8,6 +8,7 @@ import {
    showBookingOfCustomer,
    showBookingOfOwner,
    updateBookingRequest,
+   getIdBookingDetails
 } from "./booking.controller";
 const router = Router();
 
@@ -15,7 +16,7 @@ router
    .route("/create")
    .post(
       verifyingUserToken,
-      authorization(["Customer"]),
+      authorization(["Customer"]),  
       createBookingForCustomer
    );
 router
@@ -29,5 +30,8 @@ router
 router
    .route("/getOwner")
    .get(verifyingUserToken, authorization(["Owner"]), showBookingOfOwner);
+router
+   .route("/:bookingId")
+   .get(verifyingUserToken, getIdBookingDetails);
 
 export default router;
